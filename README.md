@@ -12,12 +12,10 @@ You need to find the number of different routes leading to the rescue.
 
 # Example
 ## Input
-    ```
-        3 5
+    `        3 5
         11111
         10101
-        11111
-    ```
+        11111`
 ## Output
     ```
         3
