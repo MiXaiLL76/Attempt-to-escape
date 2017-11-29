@@ -11,6 +11,9 @@ You need to find the number of different routes leading to the rescue.
 # Output Format
 
 # Example
-## Input
-
-## Output
+Input | Output
+------------ | -------------
+3 5|3
+11111|
+10101|
+11111|
