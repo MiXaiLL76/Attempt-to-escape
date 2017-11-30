@@ -31,6 +31,6 @@ Input | Output
 
 # The Olympic Challenge
 ## Test 1
-![Test 1](/image/test1.png)
+![Test 1](/image/test1.jpg)
 ## Test 2
-![Test 2](/image/test2.png)
+![Test 2](/image/test2.jpg)
