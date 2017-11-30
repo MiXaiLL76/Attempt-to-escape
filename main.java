@@ -1,4 +1,3 @@
-//import java.util.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.*;
@@ -25,78 +24,42 @@ class Attempt_to_escape {
         String[] m_n = castle.get(0).split(" ");castle.remove(0);
         int m = Integer.parseInt(m_n[0]);//row
         int n = Integer.parseInt(m_n[1]);//coll
-        
 
-        int[] prisoner = {m,0};
-        int[] exit = {0,n};
-        System.out.println("Prisoner: "+prisoner[0]+"x"+prisoner[1]);
-        System.out.println("Exit: "+exit[0]+"x"+exit[1]);
-
-        String[][] new_castle = new String[m][n];
+        int[][] new_castle = new int[m][n];
+        int[][] save = new int[m][n];
         
         for(int i=0;i<m;i++){
             for(int w=0;w<n;w++){
-                new_castle[i][w] = String.valueOf(castle.get(i).replace("0","#").replace("1","?").charAt(w));
+                new_castle[i][w] = Character.digit(castle.get(i).charAt(w),10);
+                save[i][w] = 0;
             }            
         }
-        new_castle[m-1][0] = "0";//Prisoner add  
-        new_castle[0][n-1] = "E";//Exit add
-        int next = 0;
-        while(next < n*m)
-        {            
-            int chard = 0;
-            for(int i=0;i<m;i++){
-                for(int w=0;w<n;w++){
-                    if(new_castle[i][w].charAt(0) == Character.forDigit(next,10)){
-                        if(i+1<m && new_castle[i+1][w].charAt(0) == '?'){
-                            new_castle[i+1][w] = String.valueOf(next+1);
-                        }
-                        if(i-1>=0 && new_castle[i-1][w].charAt(0) == '?'){
-                            new_castle[i-1][w] = String.valueOf(next+1);
-                        }
-                        if(w+1<n && new_castle[i][w+1].charAt(0) == '?'){
-                            new_castle[i][w+1] = String.valueOf(next+1);
-                        }
-                        if(w-1>=0 && new_castle[i][w-1].charAt(0) == '?'){
-                            new_castle[i][w-1] = String.valueOf(next+1);
-                        }
-                    }
-                    
-                    if(new_castle[i][w].charAt(0) == '?')chard+=1;
-                    
-                }       
-            }
-            if(chard == 0)break;
-            next++;
-        }
-        
-        System.out.println();
-        System.out.println(Character.forDigit(next,10));
-        System.out.println();
-        for(int i=0;i<m;i++){
-            for(int w=0;w<n;w++){
-                System.out.print(new_castle[i][w]+" ");
-            }    
-            System.out.println();       
-        }
-        
-        
+        save[m-1][0]=1;
 
-        /*
-                    
-            23456
-            10305
-            01234
+        for(int i=1; i<n; i++)
+            if(new_castle[m-1][i]==1)
+                save[m-1][i]=save[m-1][i-1];
+            else
+                save[m-1][i]=0;
 
-            2  3 4  5 -2
-            1 -1 5 -1 9
-            0 -1 6  7 8
-            4 5 6 7 8 9 10 E 
-            3 4 5 6 7 8  # ? 
-            2 3 # # # 9 10 # 
-            1 # 3 4 5 #  9 # 
-            0 1 2 # 6 7  8 # 
+        for(int i=m-2; i>=0; i--)
+            if(new_castle[i][0]==1)
+                save[i][0]=save[i+1][0];
+            else
+                save[i][0]=0;
 
-        */
+        for(int i=m-2; i>=0; i--)
+            for(int j=1; j<n; j++)
+                if(new_castle[i][j]==1)
+                    save[i][j]=save[i+1][j]+save[i][j-1];
+                else
+                    save[i][j]=0;
+
+        System.out.println("Output: ");
+        System.out.print("    ");
+        if(save[0][n-1]>0)
+            System.out.println(save[0][n-1]); 
+        else
+            System.out.println("impossible");        
     }
 }
