@@ -32,7 +32,5 @@ Input | Output
 # The Olympic Challenge
 ## Test 1
 ![Test 1](/image/test1.png)
-Format: ![Alt Text](url)
 ## Test 2
 ![Test 2](/image/test2.png)
-Format: ![Alt Text](url)
